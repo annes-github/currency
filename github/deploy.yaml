@@ -2,7 +2,7 @@ name: Test Branch Name
 
 on:
   push:
-    branches: '*'
+    branches: test/branch/PAY-1
 
 jobs:
   extract_branch_name
