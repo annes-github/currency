@@ -5,7 +5,7 @@ on:
     branches: test/branch/PAY-1
 
 jobs:
-  extract_branch_name
+  extract_branch_name:
     steps:
       - name: Extract Branch Name
         run: echo "::set-output name=branch_name::${{ github.ref }}"
