@@ -1,0 +1,22 @@
+name: Test Branch Name
+
+on:
+  push:
+    branches: '*'
+
+jobs:
+  extract_branch_name
+    steps:
+      - name: Extract Branch Name
+        run: echo "::set-output name=branch_name::${{ github.ref }}"
+      
+      - name: Extract Last Part
+        run: |
+          branch_name="${{ steps.extract_branch.outputs.branch_name }}"
+          last_part="${{ steps.extract_branch.outputs.branch_name }}"
+          last_part="${last_part#*PAY-}"
+          echo "::set-output name=last_part::${last_part}"
+      -name: Use Last Part
+       run: |
+         last_part="${{ steps.extract_last_part.outputs.last_part }}"
+         echo "Last part of the branch name: $last_part"
