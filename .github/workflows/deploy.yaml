@@ -1,23 +1,43 @@
-name: Test Branch Name
 
-on:
-  push:
-    branches: test/branch/PAY-1
-
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
 jobs:
-  extract_branch_name:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract Branch Name
-        run: echo "::set-output name=branch_name::${{ github.ref }}"
-      
-      - name: Extract Last Part
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
         run: |
-          branch_name="${{ steps.extract_branch.outputs.branch_name }}"
-          last_part="${{ steps.extract_branch.outputs.branch_name }}"
-          last_part="${last_part#*PAY-}"
-          echo "::set-output name=last_part::${last_part}"
-      -name: Use Last Part
-       run: |
-         last_part="${{ steps.extract_last_part.outputs.last_part }}"
-         echo "Last part of the branch name: $last_part"
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
+# name: Test Branch Name
+
+# on:
+#   push:
+#     branches: test/branch/PAY-1
+
+# jobs:
+#   extract_branch_name:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Extract Branch Name
+#         run: echo "::set-output name=branch_name::${{ github.ref }}"
+      
+#       - name: Extract Last Part
+#         run: |
+#           branch_name="${{ steps.extract_branch.outputs.branch_name }}"
+#           last_part="${{ steps.extract_branch.outputs.branch_name }}"
+#           last_part="${last_part#*PAY-}"
+#           echo "::set-output name=last_part::${last_part}"
+#       -name: Use Last Part
+#        run: |
+#          last_part="${{ steps.extract_last_part.outputs.last_part }}"
+#          echo "Last part of the branch name: $last_part"
