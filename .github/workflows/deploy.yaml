@@ -6,7 +6,14 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "::set-output name=branch_name::${{ github.ref }}"
+      - run: |
+          echo "::set-output name=branch_name::${{ github.ref }}"
+          branch_name="${{ steps.extract_branch.outputs.branch_name }}"
+          last_part="${{ steps.extract_branch.outputs.branch_name }}"
+          last_part="${last_part#*PAY-}"
+          echo "::set-output name=last_part::${last_part}"
+          last_part="${{ steps.extract_last_part.outputs.last_part }}"
+          echo "Last part of the branch name: $last_part"
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
